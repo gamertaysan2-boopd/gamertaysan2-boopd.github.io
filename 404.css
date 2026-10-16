@@ -1,0 +1,41 @@
+body
+{
+    background-color: midnightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1
+{
+    position: relative;
+    margin: 0;
+    font-size: 15vmax;
+    font-weight: normal;
+}
+h2
+{
+    position: relative;
+    text-align: center;
+}
+button[type="submit"]
+{
+    border: 0;
+    background: none;
+    margin: 20px auto;
+    background-color: purpl;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid ;
+    width: 150px;
+    border-radius: 24px;
+}
+button[type="submit"]:hover
+{
+    background: none;
+}
+a
+{
+    text-decoration: none;
+
+}
