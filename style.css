@@ -333,7 +333,7 @@ header {
 .bet-controls input {
     width: 100%;
     padding: 0.7rem;
-        margin: 0.5rem 0 1rem;
+    margin: 0.5rem 0 1rem;
     background: var(--bg-dark);
     border: 1px solid var(--border);
     color: white;
