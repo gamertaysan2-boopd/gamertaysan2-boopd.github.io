@@ -26,6 +26,11 @@ function calcularGanancia() {
 
 // Confirmar apuesta y descontar saldo
 function realizarApuesta() {
+    if (!window.sesion) {
+        alert("Inicia sesión para confirmar tu apuesta.");
+        abrirAuth("login");
+        return;
+    }
     const monto = parseFloat(document.getElementById("monto-apuesta").value) || 0;
 
     if (cuotaSeleccionada === 0) {
@@ -69,12 +74,6 @@ function verDetalles(titulo, precio, descripcion) {
     document.getElementById("modal").style.display = "flex";
 }
 
-function abrirModal(tipo) {
-    if (tipo === "login") {
-        verDetalles("Iniciar Sesión", "Cuenta Demo Activa", "Actualmente estás navegando con una cuenta de prueba con $50.000 de saldo virtual.");
-    }
-}
-
 function cerrarModal() {
     document.getElementById("modal").style.display = "none";
 }
@@ -101,4 +100,8 @@ document.querySelectorAll("#nav-links a").forEach(enlace => {
 // Cerrar el modal al tocar fuera de la ventana
 document.getElementById("modal").addEventListener("click", (e) => {
     if (e.target.id === "modal") cerrarModal();
+});
+
+document.getElementById("auth-modal").addEventListener("click", (e) => {
+    if (e.target.id === "auth-modal") cerrarAuth();
 });

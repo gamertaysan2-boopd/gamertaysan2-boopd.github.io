@@ -21,11 +21,14 @@
                 <li><a href="#hero">Inicio</a></li>
                 <li><a href="#en-vivo">En Vivo <span class="badge-live">LIVE</span></a></li>
                 <li><a href="#Apuestas">Apuestas</a></li>
+                <li id="nav-panel" hidden><a href="#panel">Panel</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             <div class="user-actions">
-                <span class="saldo-badge"><i class="fa-solid fa-wallet"></i> Saldo: $<span id="saldo-usuario">50.000</span></span>
-                <button class="btn-login" onclick="abrirModal('login')">Ingresar</button>
+                <span class="saldo-badge" id="saldo-badge" hidden><i class="fa-solid fa-wallet"></i> Saldo: $<span id="saldo-usuario">50.000</span></span>
+                <span class="user-chip" id="user-chip" hidden><i class="fa-solid fa-user"></i> <span id="user-nombre"></span> <span id="user-rol" class="rol-badge"></span></span>
+                <button class="btn-login" id="btn-ingresar" onclick="abrirAuth('login')">Ingresar</button>
+                <button class="btn-login" id="btn-salir" onclick="cerrarSesion()" hidden>Salir</button>
                 <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
             </div>
         </nav>
@@ -152,6 +155,27 @@
             </div>
         </section>
 
+        <!-- Panel de gestión (solo admin y moderador) -->
+        <section id="panel" class="container" hidden>
+            <div class="section-header">
+                <h2><i class="fa-solid fa-user-shield"></i> Panel de usuarios</h2>
+                <div class="panel-stats">
+                    <div><strong id="stat-total">0</strong><span>Usuarios</span></div>
+                    <div><strong id="stat-staff">0</strong><span>Staff</span></div>
+                    <div><strong id="stat-bloqueados">0</strong><span>Bloqueados</span></div>
+                </div>
+            </div>
+            <p id="panel-error" class="panel-error"></p>
+            <div class="tabla-wrap">
+                <table class="tabla-usuarios">
+                    <thead>
+                        <tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Acción</th></tr>
+                    </thead>
+                    <tbody id="tabla-usuarios"></tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Sección Contacto mejorada -->
         <section id="contacto" class="container">
             <div class="contact-wrapper">
@@ -188,6 +212,36 @@
         </div>
     </div>
 
+    <!-- Ventana Modal: Iniciar sesión / Registro -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarAuth()">&times;</span>
+            <h3 id="auth-titulo">Iniciar sesión</h3>
+            <div class="auth-tabs">
+                <button type="button" id="tab-login" class="active" onclick="cambiarTab('login')">Ingresar</button>
+                <button type="button" id="tab-registro" onclick="cambiarTab('registro')">Registrarme</button>
+            </div>
+            <p id="auth-mensaje" class="auth-mensaje" hidden></p>
+
+            <form id="form-login" class="auth-form" onsubmit="enviarLogin(event)">
+                <input type="email" id="login-email" placeholder="Correo electrónico" autocomplete="email" required>
+                <input type="password" id="login-clave" placeholder="Contraseña" autocomplete="current-password" required>
+                <button type="submit" class="cta-button">Entrar</button>
+                <button type="button" class="link-btn" onclick="recuperarClave()">¿Olvidaste tu contraseña?</button>
+            </form>
+
+            <form id="form-registro" class="auth-form" onsubmit="enviarRegistro(event)" hidden>
+                <input type="text" id="reg-nombre" placeholder="Nombre" maxlength="40" autocomplete="name" required>
+                <input type="email" id="reg-email" placeholder="Correo electrónico" autocomplete="email" required>
+                <input type="password" id="reg-clave" placeholder="Contraseña (mín. 8, letras y números)" minlength="8" autocomplete="new-password" required>
+                <input type="password" id="reg-clave2" placeholder="Repite la contraseña" minlength="8" autocomplete="new-password" required>
+                <label class="check-mayor"><input type="checkbox" id="reg-mayor"> Confirmo que soy mayor de 18 años</label>
+                <button type="submit" class="cta-button">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
