@@ -117,12 +117,15 @@ if (configurado) {
 
 function pintarSesion() {
     const s = window.sesion;
-    $("btn-ingresar").hidden = !!s;
-    $("user-chip").hidden = !s;
-    $("btn-salir").hidden = !s;
-    $("saldo-badge").hidden = !s;
-    $("nav-panel").hidden = !esStaff();
-    $("panel").hidden = !esStaff();
+    // Algunos elementos (p. ej. el panel) solo existen en el inicio: se comprueba antes de usarlos.
+    const ocultar = (id, valor) => { const el = $(id); if (el) el.hidden = valor; };
+
+    ocultar("btn-ingresar", !!s);
+    ocultar("user-chip", !s);
+    ocultar("btn-salir", !s);
+    ocultar("saldo-badge", !s);
+    ocultar("nav-panel", !esStaff());
+    ocultar("panel", !esStaff());
 
     if (s) {
         $("user-nombre").textContent = s.nombre;
@@ -130,7 +133,7 @@ function pintarSesion() {
         rol.textContent = s.role;
         rol.className = "rol-badge rol-" + s.role;
         cerrarAuth();
-        if (esStaff()) cargarUsuarios();
+        if (esStaff() && $("tabla-usuarios")) cargarUsuarios();
     }
 }
 

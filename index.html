@@ -128,7 +128,7 @@
                         <h3>Toda apuesta - Fútbol</h3>
                         <p class="precio">Desde $4.000</p>
                         <p class="descripcion">Apuesta a ganador, goles totales, tiros de esquina o tarjetas en cualquier liga.</p>
-                        <button class="btn-card" onclick="verDetalles('Toda apuesta - Fútbol', '$4.000', 'Incluye ligas europeas, Copa Libertadores y ligas locales con cashout disponible.')">Ver detalles</button>
+                        <a class="btn-card" href="detalle.html?deporte=futbol">Ver detalles</a>
                     </div>
                 </div>
 
@@ -138,7 +138,7 @@
                         <h3>Apuestas de Voleibol</h3>
                         <p class="precio">Desde $3.000</p>
                         <p class="descripcion">Pronostica el ganador por set, puntos totales y torneos internacionales.</p>
-                        <button class="btn-card" onclick="verDetalles('Apuestas de Voleibol', '$3.000', 'Cobertura completa de la Liga de Naciones, torneos olímpicos y ligas nacionales.')">Ver detalles</button>
+                        <a class="btn-card" href="detalle.html?deporte=voleibol">Ver detalles</a>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@
                         <h3>Apuestas de Baloncesto</h3>
                         <p class="precio">Desde $2.000</p>
                         <p class="descripcion">Apuesta por cuartos, hándicap asiático, triples y rendimiento de jugadores.</p>
-                        <button class="btn-card" onclick="verDetalles('Apuestas de Baloncesto', '$2.000', 'Disponible para NBA, Euroliga y FIBA con estadísticas en vivo.')">Ver detalles</button>
+                        <a class="btn-card" href="detalle.html?deporte=baloncesto">Ver detalles</a>
                     </div>
                 </div>
             </div>
@@ -200,17 +200,6 @@
     <footer>
         <p>&copy; 2026 Premium Apuestas. Todos los derechos reservados. | Juega con responsabilidad (+18).</p>
     </footer>
-
-    <!-- Ventana Modal para Detalles / Login -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="cerrarModal()">&times;</span>
-            <h3 id="modal-titulo">Título</h3>
-            <p id="modal-precio" class="precio"></p>
-            <p id="modal-descripcion"></p>
-            <button class="cta-button" onclick="cerrarModal()">Entendido</button>
-        </div>
-    </div>
 
     <!-- Ventana Modal: Iniciar sesión / Registro -->
     <div id="auth-modal" class="modal">

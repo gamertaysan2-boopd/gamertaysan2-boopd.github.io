@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de apuesta | Premium Apuestas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barra de navegación (misma que el inicio) -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-trophy"></i> Premium <span>Apuestas</span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html#hero">Inicio</a></li>
+                <li><a href="#en-vivo">En Vivo <span class="badge-live">LIVE</span></a></li>
+                <li><a href="index.html#Apuestas">Apuestas</a></li>
+                <li id="nav-panel" hidden><a href="index.html#panel">Panel</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+            <div class="user-actions">
+                <span class="saldo-badge" id="saldo-badge" hidden><i class="fa-solid fa-wallet"></i> Saldo: $<span id="saldo-usuario">50.000</span></span>
+                <span class="user-chip" id="user-chip" hidden><i class="fa-solid fa-user"></i> <span id="user-nombre"></span> <span id="user-rol" class="rol-badge"></span></span>
+                <button class="btn-login" id="btn-ingresar" onclick="abrirAuth('login')">Ingresar</button>
+                <button class="btn-login" id="btn-salir" onclick="cerrarSesion()" hidden>Salir</button>
+                <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Encabezado con la información de la apuesta elegida -->
+        <section class="container detalle-top">
+            <a href="index.html#Apuestas" class="volver"><i class="fa-solid fa-arrow-left"></i> Volver a las apuestas</a>
+
+            <div class="detalle-card">
+                <img id="detalle-img" src="" alt="">
+                <div class="detalle-texto">
+                    <span class="card-badge detalle-badge" id="detalle-badge" hidden></span>
+                    <h1 id="detalle-titulo">Cargando...</h1>
+                    <p class="precio" id="detalle-precio"></p>
+                    <p class="descripcion" id="detalle-resumen"></p>
+                    <p id="detalle-descripcion"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eventos en vivo del deporte elegido + boleto -->
+        <section id="en-vivo" class="container detalle-vivo">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-circle-dot pulse"></i> <span id="vivo-titulo">Eventos en Vivo</span></h2>
+                <p>Haz clic en una cuota para añadirla a tu boleto de apuesta</p>
+            </div>
+
+            <div class="live-layout">
+                <div class="matches-list" id="lista-eventos"></div>
+
+                <aside class="bet-slip">
+                    <h3><i class="fa-solid fa-receipt"></i> Tu Boleto</h3>
+                    <div id="seleccion-actual" class="empty-slip">
+                        Selecciona una cuota para empezar
+                    </div>
+                    <div class="bet-controls">
+                        <label for="monto-apuesta">Monto a apostar ($):</label>
+                        <input type="number" id="monto-apuesta" value="5000" min="1000" step="500" oninput="calcularGanancia()">
+                        <div class="ganancia-box">
+                            <span>Ganancia potencial:</span>
+                            <strong id="ganancia-total">$0</strong>
+                        </div>
+                        <button class="btn-apostar" onclick="realizarApuesta()">Confirmar Apuesta</button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Premium Apuestas. Todos los derechos reservados. | Juega con responsabilidad (+18).</p>
+    </footer>
+
+    <!-- Ventana Modal: Iniciar sesión / Registro (misma que el inicio) -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarAuth()">&times;</span>
+            <h3 id="auth-titulo">Iniciar sesión</h3>
+            <div class="auth-tabs">
+                <button type="button" id="tab-login" class="active" onclick="cambiarTab('login')">Ingresar</button>
+                <button type="button" id="tab-registro" onclick="cambiarTab('registro')">Registrarme</button>
+            </div>
+            <p id="auth-mensaje" class="auth-mensaje" hidden></p>
+
+            <form id="form-login" class="auth-form" onsubmit="enviarLogin(event)">
+                <input type="email" id="login-email" placeholder="Correo electrónico" autocomplete="email" required>
+                <input type="password" id="login-clave" placeholder="Contraseña" autocomplete="current-password" required>
+                <button type="submit" class="cta-button">Entrar</button>
+                <button type="button" class="link-btn" onclick="recuperarClave()">¿Olvidaste tu contraseña?</button>
+            </form>
+
+            <form id="form-registro" class="auth-form" onsubmit="enviarRegistro(event)" hidden>
+                <input type="text" id="reg-nombre" placeholder="Nombre" maxlength="40" autocomplete="name" required>
+                <input type="email" id="reg-email" placeholder="Correo electrónico" autocomplete="email" required>
+                <input type="password" id="reg-clave" placeholder="Contraseña (mín. 8, letras y números)" minlength="8" autocomplete="new-password" required>
+                <input type="password" id="reg-clave2" placeholder="Repite la contraseña" minlength="8" autocomplete="new-password" required>
+                <label class="check-mayor"><input type="checkbox" id="reg-mayor"> Confirmo que soy mayor de 18 años</label>
+                <button type="submit" class="cta-button">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="detalle.js"></script>
+    <script type="module" src="auth.js"></script>
+</body>
+</html>
